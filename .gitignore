@@ -1,0 +1,7 @@
+*.o
+*.d
+*.json
+philo
+*.txt
+.vscode/
+.DS_Store
