@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 16:46:55 by cecompte         ###   ########.fr       */
+/*   Created: 2025/11/20 15:57:28 by cecompte          #+#    #+#             */
+/*   Updated: 2025/11/20 16:00:12 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philo_died(t_philo	philo[])
+size_t	get_current_time(void)
 {
-	size_t			i;
+	struct timeval time;
 
-	i = 0;
-	while (i < philo[i].num_of_philos)
-	{
-		if (philo[i].dead == 1)
-		{
-			philo[i].data->dead_flag = 1;
-			break;
-		}
-		i++;
-	}
+	if (gettimeofday(&time, NULL) == -1)
+		printf("gettimeofday error\n");
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	*routine(void *arg)
-{
-	t_philo	*philo;
-    
-   	philo = (t_philo *)arg;
-    printf("%zu: Philosopher %d is here\n", philo->start_time, philo->id);
-    return (NULL);
-}

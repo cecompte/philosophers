@@ -25,23 +25,30 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef struct s_data
+{
+	int				dead_flag;
+} t_data;
+
 typedef struct s_philo
 {
 	pthread_t		thread;
 	int				id;
 	// int				eating;
 	int				meals_eaten;
-	// int				last_meal;
-	size_t				time_to_die;
-	size_t				time_to_eat;
-	size_t				time_to_sleep;
-	size_t				start_time;
-	size_t				num_of_philos;
-	size_t				num_times_to_eat;
-	int				*dead;
+	size_t			last_meal;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			start_time;
+	size_t			num_of_philos;
+	size_t			num_times_to_eat;
+	int				dead;
+	t_data			*data;
 }	t_philo;
 
-
-int	init_struct(t_philo philo[], char **argv);
+int			init_philo(t_philo philo[], t_data *data, char **argv);
+void		*routine(void *arg);
+size_t		get_current_time(void);
 
 #endif

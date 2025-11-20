@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 15:45:58 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:46:09 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,7 @@ int	check_args(char **argv, size_t values[])
 	return (0);
 }
 
-size_t	get_current_time(void)
-{
-	struct timeval time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		write(2, "gettimeofday() error\n", 22);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-int	init_struct(t_philo philo[], char **argv)
+int	init_philo(t_philo philo[], t_data *data, char **argv)
 {
 	size_t	values[5];
 	size_t	i;
@@ -74,6 +65,7 @@ int	init_struct(t_philo philo[], char **argv)
 	if (check_args(argv, values))
 		return (1);
 	i = 0;
+	data->dead_flag = 0;
 	while (i < values[0])
 	{
 		philo[i].num_of_philos = values[0];
@@ -84,8 +76,11 @@ int	init_struct(t_philo philo[], char **argv)
 		philo[i].num_times_to_eat = values[4];
 		philo[i].meals_eaten = 0;
 		philo[i].start_time = get_current_time();
+		philo[i].dead = 0;
+		philo[i].data = data;
 		i++;
 	}
 	return (0);
 }
+
 

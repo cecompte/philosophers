@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 19:26:32 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 15:45:33 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:43:07 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,16 @@ int	print_philo(t_philo philo[])
     return (0);
 }
 
-void	*routine(void *arg)
-{
-	t_philo *philo;
-    
-    philo = (t_philo *)arg;
-    printf("Philosopher %d is here\n", philo->id);
-    return (NULL);
-}
-
 int	 main(int argc, char **argv)
 {
     t_philo	philo[200];
+    t_data  data;
     size_t  i;
 
     if (argc < 5)
         return (printf("Error: Wrong number of arguments\n"));
-    init_struct(philo, argv);
+    if (init_philo(philo, &data, argv))
+        return (1);
     print_philo(philo);
     i = 0;
     while (i < philo[0].num_of_philos)

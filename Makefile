@@ -7,7 +7,9 @@ NAME			= philo
 # Sources
 SRC_PATH		= src/
 SRC				= main.c \
-				  	init.c
+				  	init.c \
+					routine.c \
+					utils.c
 					
 SOURCES			= $(addprefix $(SRC_PATH), $(SRC))
 
