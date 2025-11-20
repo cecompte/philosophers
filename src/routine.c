@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 16:46:55 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:06:27 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ void	*routine(void *arg)
 	t_philo	*philo;
     
    	philo = (t_philo *)arg;
-    printf("%zu: Philosopher %d is here\n", philo->start_time, philo->id);
-    return (NULL);
+	while (philo->meals_eaten < philo->num_times_to_eat)
+	{
+    	printf("%zu: %d is eating\n", philo->start_time, philo->id);
+		philo->meals_eaten++;
+		usleep(philo->time_to_eat * 1000);
+		printf("%zu: %d is sleeping\n", philo->start_time, philo->id);
+		usleep(philo->time_to_sleep * 1000);
+		printf("%zu: %d is thinking\n", philo->start_time, philo->id);
+	}
+	return (NULL);
 }

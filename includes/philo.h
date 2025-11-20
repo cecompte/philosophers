@@ -35,7 +35,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				id;
 	// int				eating;
-	int				meals_eaten;
+	size_t				meals_eaten;
 	size_t			last_meal;
 	size_t			time_to_die;
 	size_t			time_to_eat;
