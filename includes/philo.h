@@ -19,6 +19,8 @@
 # include <pthread.h>
 # include <limits.h>
 # include <string.h>
+# include <sys/time.h>
+
 
 # define TRUE 1
 # define FALSE 0
@@ -30,12 +32,12 @@ typedef struct s_philo
 	// int				eating;
 	int				meals_eaten;
 	// int				last_meal;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	// int				start_time;
-	int				num_of_philos;
-	int				num_times_to_eat;
+	size_t				time_to_die;
+	size_t				time_to_eat;
+	size_t				time_to_sleep;
+	size_t				start_time;
+	size_t				num_of_philos;
+	size_t				num_times_to_eat;
 	int				*dead;
 }	t_philo;
 

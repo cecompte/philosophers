@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 13:25:13 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/20 15:45:58 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-int	is_valid(const char *nptr, int *result)
+int	is_valid(const char *nptr, size_t *result)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ int	is_valid(const char *nptr, int *result)
 	return (1);
 }
 
-int	check_args(char **argv, int values[])
+int	check_args(char **argv, size_t values[])
 {
 	int	i;
 
@@ -56,16 +56,25 @@ int	check_args(char **argv, int values[])
 	return (0);
 }
 
+size_t	get_current_time(void)
+{
+	struct timeval time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
 int	init_struct(t_philo philo[], char **argv)
 {
-	int	values[5];
-	int	i;
+	size_t	values[5];
+	size_t	i;
 
-	memset(values, 0, 5);
+	memset(values, 0, sizeof(values));
 	if (check_args(argv, values))
 		return (1);
-	i = -1;
-	while (++i < values[0])
+	i = 0;
+	while (i < values[0])
 	{
 		philo[i].num_of_philos = values[0];
 		philo[i].id = i + 1;
@@ -74,6 +83,8 @@ int	init_struct(t_philo philo[], char **argv)
 		philo[i].time_to_sleep = values[3];
 		philo[i].num_times_to_eat = values[4];
 		philo[i].meals_eaten = 0;
+		philo[i].start_time = get_current_time();
+		i++;
 	}
 	return (0);
 }
