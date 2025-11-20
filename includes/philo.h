@@ -16,6 +16,30 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include <pthreads.h>
+# include <pthread.h>
+# include <limits.h>
+# include <string.h>
+
+# define TRUE 1
+# define FALSE 0
+
+typedef struct s_philo
+{
+	pthread_t		thread;
+	int				id;
+	// int				eating;
+	int				meals_eaten;
+	// int				last_meal;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	// int				start_time;
+	int				num_of_philos;
+	int				num_times_to_eat;
+	int				*dead;
+}	t_philo;
+
+
+int	init_struct(t_philo philo[], char **argv);
 
 #endif
