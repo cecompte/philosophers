@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 12:37:07 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/20 13:25:13 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ int	is_valid(const char *nptr, int *result)
 	return (1);
 }
 
-int	init_struct(t_philo philo[], char **argv)
+int	check_args(char **argv, int values[])
 {
-	int	values[5];
 	int	i;
 
-	memset(values, 0, 5);
 	i = -1;
 	while (++i < 4)
 	{
@@ -53,6 +51,19 @@ int	init_struct(t_philo philo[], char **argv)
 	}
 	if (argv[5] && !is_valid(argv[5], &values[4]))
 		return (printf("Error: Invalid argument\n"));
+	if (values[0] > 200)
+		return (printf("Error: Too many philosophers\n"));
+	return (0);
+}
+
+int	init_struct(t_philo philo[], char **argv)
+{
+	int	values[5];
+	int	i;
+
+	memset(values, 0, 5);
+	if (check_args(argv, values))
+		return (1);
 	i = -1;
 	while (++i < values[0])
 	{
@@ -66,3 +77,4 @@ int	init_struct(t_philo philo[], char **argv)
 	}
 	return (0);
 }
+
