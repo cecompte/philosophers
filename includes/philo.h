@@ -21,7 +21,6 @@
 # include <string.h>
 # include <sys/time.h>
 
-
 # define TRUE 1
 # define FALSE 0
 
@@ -52,21 +51,22 @@ typedef struct s_philo
 // Shared program state
 typedef struct s_program
 {
-    t_philo         	*philos;		// Array of all philosophers
-    t_fork          	*forks;			// Array of all forks
-    int             	dead_flag;		// Shared death flag
-    pthread_mutex_t 	dead_mutex;		// Protect dead_flag reads/writes
-    pthread_mutex_t 	print_mutex;	// Protect printf calls
-} t_program;
+	t_philo				*philos;
+	t_fork				*forks;
+	int					dead_flag;
+	pthread_mutex_t		dead_mutex;
+	pthread_mutex_t		print_mutex;
+}	t_program;
 
 // Thread arguments
 typedef struct s_thread_data
 {
-	t_philo				*philo;			// This specific philosopher
-	t_program			*program;		// Access to all shared resources
-} t_thread_data;
+	t_philo				*philo;
+	t_program			*program;
+}	t_thread_data;
 
-int			init_program(t_program *program, t_philo philos[], t_fork forks[], char **argv);
+int			init(t_program *program, t_philo philos[],
+				t_fork forks[], char **argv);
 int			init_mutexes(t_program *program);
 int			read_dead_flag(t_program *program);
 void		*routine(void *arg);
