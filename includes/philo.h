@@ -45,6 +45,8 @@ typedef struct s_philo
 	size_t				start_time;
 	size_t				num_of_philos;
 	size_t				num_times_to_eat;
+	int					fork_1;
+	int					fork_2;
 }	t_philo;
 
 // Shared program state
@@ -65,9 +67,10 @@ typedef struct s_thread_data
 } t_thread_data;
 
 int			init_program(t_program *program, t_philo philos[], t_fork forks[], char **argv);
-int			init_mutexes(t_fork forks[], int size);
+int			init_mutexes(t_program *program);
+int			read_dead_flag(t_program *program);
 void		*routine(void *arg);
 void		*monitor(void *arg);
 size_t		get_current_time(void);
-int			print(t_philo *philo, char *message, int flag);
+int			print(t_program *program, t_philo *philo, char *message, int flag);
 #endif

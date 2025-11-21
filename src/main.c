@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 19:26:32 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/21 16:19:38 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/21 17:28:48 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	print_philo(t_philo philos[])
     return (0);
 }
 
-int create_threads(t_philo philos[], t_program *program, pthread_t *monitor_thread)
+int create_threads(t_philo philos[], t_program *program, pthread_t *thread)
 {
     t_thread_data   data[200];
     size_t      i;
@@ -44,7 +44,7 @@ int create_threads(t_philo philos[], t_program *program, pthread_t *monitor_thre
             return (printf("pthread_create error\n"));
         i++;
     }
-    if (pthread_create(monitor_thread, NULL, monitor, (void *)program))
+    if (pthread_create(thread, NULL, monitor, (void *)program))
         return (printf("pthread_create error\n"));
     return (0);
 }
@@ -56,25 +56,29 @@ int join_threads(t_philo philos[], pthread_t *thread)
     i = 0;
     while (i < philos[0].num_of_philos)
     {
-       if (pthread_join(philos[i].thread, NULL))
-        return (printf("pthread_join error\n"));
+        if (pthread_join(philos[i].thread, NULL))
+            return (printf("pthread_join error\n"));
         i++;
     }
-    if (pthread_join(thread, NULL))
+    if (pthread_join(*thread, NULL))
         return (printf("pthread_join error\n"));
     return (0);
 }
 
-int destroy_mutexes(t_fork forks[], size_t size)
+int destroy_mutexes(t_program *program)
 {
+    t_fork *forks;
     size_t	i;
 
 	i = 0;
-	while (i < size)
+    forks = program->forks;
+	while (i < program->philos->num_of_philos)
 	{
 		pthread_mutex_destroy(&forks[i].mutex);
 		i++;
 	}
+    pthread_mutex_destroy(&program->dead_mutex);
+    pthread_mutex_destroy(&program->print_mutex);
 	return (0);
 }
 
@@ -90,12 +94,12 @@ int	 main(int argc, char **argv)
     if (init_program(&program, philos, forks, argv))
         return (1);
     print_philo(philos);
-    if (init_mutexes(forks, philos[0].num_of_philos))
+    if (init_mutexes(&program))
         return (1);
     if (create_threads(philos, &program, &monitor_thread))
         return (1);
     if (join_threads(philos, &monitor_thread))
         return (1);
-    destroy_mutexes(forks, philos[0].num_of_philos);
+    destroy_mutexes(&program);
     return (0);
 }
