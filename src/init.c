@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/21 17:33:13 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/21 18:33:56 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,7 @@ int	check_args(char **argv, size_t values[])
 		return (printf("Error: Too many philosophers\n"));
 	return (0);
 }
-void	set_fork_order(t_philo *philo)
-{
-	int	left;
-	int	right;
-	
-	right = philo->id - 1;
-	if (philo->id == (int)philo->num_of_philos)
-		left = 0;
-	else
-		left = philo->id;
-	if (philo->id % 2 == 0) //even number -> pick right fork first (same as philo ID number)
-	{
-		philo->fork_1 = right;
-		philo->fork_2 = left;
-	}
-	else //odd number -> pick left fork first (philo ID number + 1)
-	{
-		philo->fork_1 = left;
-		philo->fork_2 = right;
-	}
-}
-	
+
 int	init_arrays(t_philo philos[], t_fork forks[], char **argv)
 {
 	size_t	values[5];
@@ -97,12 +76,13 @@ int	init_arrays(t_philo philos[], t_fork forks[], char **argv)
 	return (0);
 }
 
-int	init_program(t_program *program, t_philo philos[], t_fork forks[], char **argv)
+int	init_program(t_program *program, t_philo philos[],
+		t_fork forks[], char **argv)
 {
 	program->philos = philos;
 	program->forks = forks;
 	program->dead_flag = 0;
-    if (init_arrays(philos, forks, argv))
+	if (init_arrays(philos, forks, argv))
 		return (1);
 	return (0);
 }
@@ -120,10 +100,8 @@ int	init_mutexes(t_program *program)
 			return (printf("pthread_mutex_init error\n"));
 		i++;
 	}
-	if (pthread_mutex_init(&program->dead_mutex, NULL) 
+	if (pthread_mutex_init(&program->dead_mutex, NULL)
 		|| pthread_mutex_init(&program->print_mutex, NULL))
 		return (printf("pthread_mutex_init error\n"));
 	return (0);
 }
-
-

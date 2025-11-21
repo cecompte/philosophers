@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 13:18:47 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/21 17:51:46 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/21 18:18:06 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,12 @@ int	check_all_eaten(t_program *program)
 void	*monitor(void *arg)
 {
 	t_program	*program;
-	int	i;
 
 	program = (t_program *)arg;
-	i = 0;
 	while (read_dead_flag(program) == 0)
 	{
 		if (check_if_died(program) || check_all_eaten(program))
-		{
-
-		}
+			return (NULL);
 		usleep(1000);
 	}
 	return (NULL);

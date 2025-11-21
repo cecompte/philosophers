@@ -65,9 +65,10 @@ typedef struct s_thread_data
 	t_program			*program;
 }	t_thread_data;
 
-int			init(t_program *program, t_philo philos[],
+int			init_program(t_program *program, t_philo philos[],
 				t_fork forks[], char **argv);
 int			init_mutexes(t_program *program);
+void		set_fork_order(t_philo *philo);
 int			read_dead_flag(t_program *program);
 void		*routine(void *arg);
 void		*monitor(void *arg);

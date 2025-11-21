@@ -28,6 +28,7 @@ int	eating(t_program *program, t_philo *philo)
 	pthread_mutex_unlock(&program->forks[philo->fork_2].mutex);
 	return (0);
 }
+
 int	read_dead_flag(t_program *program)
 {
 	int	is_dead;
@@ -53,12 +54,11 @@ int	one_philo(t_program *program, t_philo *philo)
 
 void	*routine(void *arg)
 {
-	// wait until all threads are created to start simulation ?
 	t_thread_data	*data;
 	t_philo			*philo;
 	t_program		*program;
-    
-   	data = (t_thread_data *)arg;
+
+	data = (t_thread_data *)arg;
 	philo = data->philo;
 	program = data->program;
 	if (one_philo(program, philo))
@@ -72,4 +72,3 @@ void	*routine(void *arg)
 	}
 	return (NULL);
 }
-
