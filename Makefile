@@ -8,6 +8,7 @@ NAME			= philo
 SRC_PATH		= src/
 SRC				= main.c \
 				  	init.c \
+					monitor.c \
 					routine.c \
 					utils.c
 					

@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/20 17:11:22 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/21 16:25:14 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_args(char **argv, size_t values[])
 {
 	int	i;
 
+	memset(values, 0, sizeof(values));
 	i = -1;
 	while (++i < 4)
 	{
@@ -56,28 +57,58 @@ int	check_args(char **argv, size_t values[])
 	return (0);
 }
 
-int	init_philo(t_philo philo[], t_data *data, char **argv)
+int	init_arrays(t_philo philos[], t_fork forks[], char **argv)
 {
 	size_t	values[5];
 	size_t	i;
 
-	memset(values, 0, sizeof(values));
 	if (check_args(argv, values))
 		return (1);
+	memset(forks, 0, values[0] * sizeof(t_fork));
+	memset(philos, 0, values[0] * sizeof(t_philo));
 	i = 0;
-	data->dead_flag = 0;
 	while (i < values[0])
 	{
-		philo[i].num_of_philos = values[0];
-		philo[i].id = i + 1;
-		philo[i].time_to_die = values[1];
-		philo[i].time_to_eat = values[2];
-		philo[i].time_to_sleep = values[3];
-		philo[i].num_times_to_eat = values[4];
-		philo[i].meals_eaten = 0;
-		philo[i].start_time = get_current_time();
-		philo[i].dead = 0;
-		philo[i].data = data;
+		forks[i].id = i + 1;
+		philos[i].num_of_philos = values[0];
+		philos[i].id = i + 1;
+		philos[i].time_to_die = values[1];
+		philos[i].time_to_eat = values[2];
+		philos[i].time_to_sleep = values[3];
+		philos[i].num_times_to_eat = values[4];
+		philos[i].start_time = get_current_time();
+		i++;
+	}
+	return (0);
+}
+
+int	init_program(t_program *program, t_philo philos[], t_fork forks[], char **argv)
+{
+	// Initialize program and point it to your arrays
+	program->philos = philos;
+	program->forks = forks;
+	program->dead_flag = 0;
+
+	// Initialize mutexes
+	if (pthread_mutex_init(&program->dead_mutex, NULL) 
+		|| pthread_mutex_init(&program->print_mutex, NULL))
+		return (printf(printf("pthread_mutex_init error\n")));
+
+	// Initialize resources
+    if (init_arrays(philos, forks, argv))
+        return (1);
+	return (0);
+}
+
+int	init_mutexes(t_fork forks[], size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (pthread_mutex_init(&forks[i].mutex, NULL))
+			return (printf("pthread_mutex_init error\n"));
 		i++;
 	}
 	return (0);
