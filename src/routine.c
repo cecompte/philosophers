@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:39:42 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:39:32 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,15 @@ int	one_philo(t_program *program, t_philo *philo)
 
 void	*routine(void *arg)
 {
-	t_thread_data	*data;
-	t_philo			*philo;
-	t_program		*program;
+	t_philo		*philo;
+	t_program	*program;
 
-	data = (t_thread_data *)arg;
-	philo = data->philo;
-	program = data->program;
+	philo = (t_philo *)arg;
+	program = philo->program;
 	if (one_philo(program, philo))
 		return (NULL);
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(philo->time_to_eat * 1000);
 	while (read_dead_flag(program) == 0)
 	{
 		eating(program, philo);

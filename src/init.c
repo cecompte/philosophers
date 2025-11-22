@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:26:45 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:54:25 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_args(char **argv, size_t values[])
 	return (0);
 }
 
-int	init_arrays(t_philo philos[], t_fork forks[], char **argv)
+int	init_arrays(t_program *program, t_philo philos[], t_fork forks[], char **argv)
 {
 	size_t	values[5];
 	size_t	i;
@@ -70,6 +70,7 @@ int	init_arrays(t_philo philos[], t_fork forks[], char **argv)
 		philos[i].num_times_to_eat = values[4];
 		philos[i].start_time = get_current_time();
 		philos[i].last_meal = get_current_time();
+		philos[i].program = program;
 		set_fork_order(&philos[i]);
 		i++;
 	}
@@ -82,7 +83,7 @@ int	init_program(t_program *program, t_philo philos[],
 	program->philos = philos;
 	program->forks = forks;
 	program->dead_flag = 0;
-	if (init_arrays(philos, forks, argv))
+	if (init_arrays(program, philos, forks, argv))
 		return (1);
 	return (0);
 }

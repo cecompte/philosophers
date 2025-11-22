@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 19:26:32 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:28:12 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:54:05 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ int	print_philo(t_philo philos[])
 */
 int	create_threads(t_philo philos[], t_program *program, pthread_t *thread)
 {
-	t_thread_data	data[200];
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while (i < philos[0].num_of_philos)
 	{
-		data[i].philo = &philos[i];
-		data[i].program = program;
-		if (pthread_create(&philos[i].thread, NULL, routine, (void *)&data[i]))
+		if (pthread_create(&philos[i].thread, NULL, routine,
+				(void *)&philos[i]))
 			return (printf("pthread_create error\n"));
 		i++;
 	}

@@ -24,13 +24,6 @@
 # define TRUE 1
 # define FALSE 0
 
-// Basic resources
-typedef struct s_fork
-{
-	pthread_mutex_t		mutex;
-	int					id;
-}	t_fork;
-
 typedef struct s_philo
 {
 	pthread_t			thread;
@@ -47,9 +40,15 @@ typedef struct s_philo
 	int					fork_1;
 	int					fork_2;
 	pthread_mutex_t		meals_mutex;
+	struct s_program	*program;
 }	t_philo;
 
-// Shared program state
+typedef struct s_fork
+{
+	pthread_mutex_t		mutex;
+	int					id;
+}	t_fork;
+
 typedef struct s_program
 {
 	t_philo				*philos;
@@ -58,13 +57,6 @@ typedef struct s_program
 	pthread_mutex_t		dead_mutex;
 	pthread_mutex_t		print_mutex;
 }	t_program;
-
-// Thread arguments
-typedef struct s_thread_data
-{
-	t_philo				*philo;
-	t_program			*program;
-}	t_thread_data;
 
 int			init_program(t_program *program, t_philo philos[],
 				t_fork forks[], char **argv);
