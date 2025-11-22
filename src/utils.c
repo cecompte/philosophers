@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 15:57:28 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:48:08 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:46:10 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ size_t	get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	print(t_program *program, t_philo *philo, char *message, int flag)
+int	print(t_philo *philo, char *message, int flag)
 {
+	t_program	*program;
+
+	program = philo->program;
 	pthread_mutex_lock(&program->print_mutex);
 	if (read_dead_flag(program) && flag == 1)
 	{

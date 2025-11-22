@@ -66,5 +66,5 @@ int			read_dead_flag(t_program *program);
 void		*routine(void *arg);
 void		*monitor(void *arg);
 size_t		get_current_time(void);
-int			print(t_program *program, t_philo *philo, char *message, int flag);
+int			print(t_philo *philo, char *message, int flag);
 #endif

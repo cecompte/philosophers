@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 13:18:47 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:58:22 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:46:39 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_if_died(t_program *program)
 			pthread_mutex_lock(&program->dead_mutex);
 			program->dead_flag = 1;
 			pthread_mutex_unlock(&program->dead_mutex);
-			return (print(program, &philos[i], "has died", 2));
+			return (print(&philos[i], "has died", 2));
 		}
 		pthread_mutex_unlock(&philos[i].meals_mutex);
 		i++;
@@ -57,7 +57,7 @@ int	check_all_eaten(t_program *program)
 	pthread_mutex_lock(&program->dead_mutex);
 	program->dead_flag = 1;
 	pthread_mutex_unlock(&program->dead_mutex);
-	return (print(program, &philos[0], "All philosophers have eaten", 0));
+	return (print(&philos[0], "All philosophers have eaten", 0));
 }
 
 void	*monitor(void *arg)
