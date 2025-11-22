@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 18:57:55 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 19:22:58 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	*routine(void *arg)
 		print(philo, "is sleeping", 1);
 		usleep(philo->time_to_sleep * 1000);
 		print(philo, "is thinking", 1);
-		if (philo->num_of_philos > 100)
-			usleep(1000);
 	}
 	return (NULL);
 }
