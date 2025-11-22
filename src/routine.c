@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 17:39:32 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:11:51 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	*routine(void *arg)
 	program = philo->program;
 	if (one_philo(program, philo))
 		return (NULL);
-	if (philo->id % 2 == 0)
-		usleep(philo->time_to_eat * 1000);
 	while (read_dead_flag(program) == 0)
 	{
 		eating(program, philo);
