@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:06:32 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:26:45 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ int	init_mutexes(t_program *program)
 		i++;
 	}
 	if (pthread_mutex_init(&program->dead_mutex, NULL)
-		|| pthread_mutex_init(&program->print_mutex, NULL)
-		|| pthread_mutex_init(&program->read_mutex, NULL))
+		|| pthread_mutex_init(&program->print_mutex, NULL))
 		return (printf("pthread_mutex_init error\n"));
 	return (0);
 }

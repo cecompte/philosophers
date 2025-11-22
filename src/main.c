@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 19:26:32 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 15:55:47 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:28:12 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	destroy_mutexes(t_program *program)
 	while (i < program->philos->num_of_philos)
 	{
 		pthread_mutex_destroy(&forks[i].mutex);
+		pthread_mutex_destroy(&program->philos[i].meals_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&program->dead_mutex);
 	pthread_mutex_destroy(&program->print_mutex);
-	pthread_mutex_destroy(&program->read_mutex);
 	return (0);
 }
 

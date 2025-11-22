@@ -57,7 +57,6 @@ typedef struct s_program
 	int					dead_flag;
 	pthread_mutex_t		dead_mutex;
 	pthread_mutex_t		print_mutex;
-	pthread_mutex_t		read_mutex;
 }	t_program;
 
 // Thread arguments

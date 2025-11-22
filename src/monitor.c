@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 13:18:47 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 16:06:04 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:29:06 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int	check_if_died(t_program *program)
 	i = 0;
 	while (i < philos[0].num_of_philos)
 	{
-		pthread_mutex_lock(&program->read_mutex);
+		pthread_mutex_lock(&philos[i].meals_mutex);
 		if (get_current_time() - philos[i].last_meal > philos[i].time_to_die
 			&& !philos[i].eating)
 		{
-			pthread_mutex_unlock(&program->read_mutex);
+			pthread_mutex_unlock(&philos[i].meals_mutex);
 			pthread_mutex_lock(&program->dead_mutex);
 			program->dead_flag = 1;
 			pthread_mutex_unlock(&program->dead_mutex);
 			return (print(program, &philos[i], "has died", 2));
 		}
-		pthread_mutex_unlock(&program->read_mutex);
+		pthread_mutex_unlock(&philos[i].meals_mutex);
 		i++;
 	}
 	return (0);
@@ -43,17 +43,18 @@ int	check_all_eaten(t_program *program)
 	size_t	i;
 
 	philos = program->philos;
-	pthread_mutex_lock(&program->read_mutex);
+	pthread_mutex_lock(&philos[0].meals_mutex);
 	if (!philos[0].num_times_to_eat)
-		return (pthread_mutex_unlock(&program->read_mutex), 0);
+		return (pthread_mutex_unlock(&philos[0].meals_mutex), 0);
 	i = 0;
 	while (i < philos[0].num_of_philos)
 	{
+		pthread_mutex_lock(&philos[i].meals_mutex);
 		if (philos[i].meals_eaten < philos[i].num_times_to_eat)
-			return (pthread_mutex_unlock(&program->read_mutex), 0);
+			return (pthread_mutex_unlock(&philos[i].meals_mutex), 0);
+		pthread_mutex_unlock(&philos[i].meals_mutex);
 		i++;
 	}
-	pthread_mutex_unlock(&program->read_mutex);
 	pthread_mutex_lock(&program->dead_mutex);
 	program->dead_flag = 1;
 	pthread_mutex_unlock(&program->dead_mutex);
