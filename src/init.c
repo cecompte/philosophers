@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/21 18:33:56 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:06:32 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,14 @@ int	init_mutexes(t_program *program)
 	i = 0;
 	while (i < program->philos[0].num_of_philos)
 	{
-		if (pthread_mutex_init(&forks[i].mutex, NULL))
+		if (pthread_mutex_init(&forks[i].mutex, NULL)
+			|| pthread_mutex_init(&program->philos[i].meals_mutex, NULL))
 			return (printf("pthread_mutex_init error\n"));
 		i++;
 	}
 	if (pthread_mutex_init(&program->dead_mutex, NULL)
-		|| pthread_mutex_init(&program->print_mutex, NULL))
+		|| pthread_mutex_init(&program->print_mutex, NULL)
+		|| pthread_mutex_init(&program->read_mutex, NULL))
 		return (printf("pthread_mutex_init error\n"));
 	return (0);
 }

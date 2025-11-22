@@ -46,6 +46,7 @@ typedef struct s_philo
 	size_t				num_times_to_eat;
 	int					fork_1;
 	int					fork_2;
+	pthread_mutex_t		meals_mutex;
 }	t_philo;
 
 // Shared program state
@@ -56,6 +57,7 @@ typedef struct s_program
 	int					dead_flag;
 	pthread_mutex_t		dead_mutex;
 	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		read_mutex;
 }	t_program;
 
 // Thread arguments

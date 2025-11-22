@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/21 17:25:38 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 15:59:43 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ int	eating(t_program *program, t_philo *philo)
 	print(program, philo, "has taken a fork", 1);
 	pthread_mutex_lock(&program->forks[philo->fork_2].mutex);
 	print(program, philo, "has taken a fork", 1);
+	pthread_mutex_lock(&philo->meals_mutex);
 	philo->last_meal = get_current_time();
-	print(program, philo, "is eating", 1);
 	philo->eating = 1;
-	usleep(philo->time_to_eat * 1000);
 	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->meals_mutex);
+	print(program, philo, "is eating", 1);
+	usleep(philo->time_to_eat * 1000);
+	pthread_mutex_lock(&philo->meals_mutex);
 	philo->eating = 0;
+	pthread_mutex_unlock(&philo->meals_mutex);
 	pthread_mutex_unlock(&program->forks[philo->fork_1].mutex);
 	pthread_mutex_unlock(&program->forks[philo->fork_2].mutex);
 	return (0);
