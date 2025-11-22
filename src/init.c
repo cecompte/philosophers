@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 11:45:52 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 17:54:25 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:10:12 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	check_args(char **argv, size_t values[])
 	return (0);
 }
 
-int	init_arrays(t_program *program, t_philo philos[], t_fork forks[], char **argv)
+int	init_arrays(t_program *program, t_philo philos[], t_fork forks[],
+	char **argv)
 {
 	size_t	values[5];
 	size_t	i;
