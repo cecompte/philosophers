@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 15:57:28 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/21 18:32:48 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:48:08 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,17 @@ void	set_fork_order(t_philo *philo)
 	int	left;
 	int	right;
 
-	right = philo->id - 1;
-	if (philo->id == (int)philo->num_of_philos)
-		left = 0;
-	else
-		left = philo->id;
+	left = philo->id - 1;
+	right = philo->id % philo->num_of_philos;
 	if (philo->id % 2 == 0)
-	{
-		philo->fork_1 = right;
-		philo->fork_2 = left;
-	}
-	else
 	{
 		philo->fork_1 = left;
 		philo->fork_2 = right;
+	}
+	else
+	{
+		philo->fork_1 = right;
+		philo->fork_2 = left;
 	}
 }
 
