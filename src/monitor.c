@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 13:18:47 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 18:46:39 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:39:04 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	check_if_died(t_program *program)
 	while (i < philos[0].num_of_philos)
 	{
 		pthread_mutex_lock(&philos[i].meals_mutex);
-		if (get_current_time() - philos[i].last_meal > philos[i].time_to_die
-			&& !philos[i].eating)
+		if (!philos[i].eating && get_current_time() - philos[i].last_meal
+			>= philos[i].time_to_die)
 		{
 			pthread_mutex_unlock(&philos[i].meals_mutex);
 			pthread_mutex_lock(&program->dead_mutex);

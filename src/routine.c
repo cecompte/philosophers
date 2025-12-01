@@ -6,7 +6,7 @@
 /*   By: cecompte <cecompte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:35:18 by cecompte          #+#    #+#             */
-/*   Updated: 2025/11/22 19:22:58 by cecompte         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:31:25 by cecompte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ void	*routine(void *arg)
 	if (one_philo(philo))
 		return (NULL);
 	if (philo->id % 2 == 0)
-		usleep(15000);
+		usleep(1000 * philo->time_to_eat);
 	while (read_dead_flag(program) == 0)
 	{
 		eating(philo);
 		print(philo, "is sleeping", 1);
 		usleep(philo->time_to_sleep * 1000);
 		print(philo, "is thinking", 1);
+		usleep(1000);
 	}
 	return (NULL);
 }
